@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Inferless API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run inference against a deployed model.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://m-xxxxxxxx.default.model-v1.inferless.com/v2/inference/{model_name}/infer",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"inputs\": [\n    {\n      \"name\": \"prompt\",\n      \"shape\": [1],\n      \"datatype\": \"BYTES\",\n      \"data\": [\"What is AI?\"]\n    }\n  ]\n}"
+            }
+          },
+          "docs": "Posts a KServe v2 style inputs[] payload to the deployed model's auto-generated inference endpoint. The host is generated per deployment and shown on the model's API page."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Model Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update a model's autoscaling and machine settings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inferless.com/rest/model/settings/update/",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"model_id\": \"<model-id>\",\n  \"data\": {\n    \"min_replica\": 0,\n    \"max_replica\": 2,\n    \"scale_down_delay\": 30,\n    \"inference_time\": 120,\n    \"is_dedicated\": false,\n    \"machine_type\": \"T4\",\n    \"container_concurrency\": 10,\n    \"is_input_output_enabled\": false\n  }\n}"
+            }
+          },
+          "docs": "Updates min/max replicas, scale-down delay, inference timeout, dedicated flag, machine type, and container concurrency for a deployed model."
+        },
+        {
+          "info": {
+            "name": "Retrieve runtime logs for a deployed model.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inferless.com/rest/model/logs/get/",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"model_id\": \"<model-id>\",\n  \"time_from\": \"2026-06-19T00:00:00Z\",\n  \"time_to\": \"2026-06-20T00:00:00Z\",\n  \"is_less_logs\": false\n}"
+            }
+          },
+          "docs": "Returns stdout/stderr log entries for a deployed model over a time range, with optional pagination via next_token."
+        }
+      ]
+    }
+  ]
+}

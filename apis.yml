@@ -1,0 +1,106 @@
+aid: inferless
+url: https://raw.githubusercontent.com/api-evangelist/inferless/refs/heads/main/apis.yml
+name: Inferless
+kind: company
+description: Inferless is a serverless GPU inference platform for machine learning
+  models. Teams import a model from Hugging Face, a Git repo, or a container and
+  Inferless auto-generates a scalable REST inference endpoint billed per second of
+  GPU compute. A workspace-scoped management API and CLI cover model import,
+  deployment, settings, logs, secrets, and volumes.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- AI
+- ML Inference
+- Serverless GPU
+- Model Deployment
+- Inference
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: inferless:inferless-inference-endpoints-api
+  name: Inferless Inference Endpoints API
+  tags:
+  - Inference
+  - Serverless GPU
+  - Predictions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.inferless.com/api-reference/model-endpoint/model-endpoint
+  baseURL: https://api.inferless.com
+  properties:
+  - url: https://docs.inferless.com/api-reference/model-endpoint/model-endpoint
+    type: Documentation
+  - url: https://docs.inferless.com/api-reference/model-endpoint/test-your-model-endpoint
+    type: APIReference
+  - url: openapi/inferless-openapi.yml
+    type: OpenAPI
+  - url: collections/inferless.postman_collection.json
+    type: Postman
+  description: Each deployed model exposes an auto-generated REST inference endpoint
+    on a per-deployment host (m-<id>.<region>.model-v1.inferless.com) accepting a
+    KServe v2 style inputs[] payload with name, shape, datatype, and data, secured
+    with a workspace API key as a Bearer token and billed per second of GPU compute.
+- aid: inferless:inferless-model-management-api
+  name: Inferless Model Management API
+  tags:
+  - Model Management
+  - Deployments
+  - Settings
+  - Logs
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.inferless.com/api-reference/model-management-apis/model-settings-update
+  baseURL: https://api.inferless.com
+  properties:
+  - url: https://docs.inferless.com/api-reference/model-management-apis/model-settings-update
+    type: Documentation
+  - url: https://docs.inferless.com/api-reference/model-management-apis/model-logs-get
+    type: APIReference
+  - url: openapi/inferless-openapi.yml
+    type: OpenAPI
+  - url: collections/inferless.postman_collection.json
+    type: Postman
+  description: Workspace-scoped REST management API under https://api.inferless.com/rest
+    for updating model autoscaling and machine settings (min/max replicas, machine
+    type, concurrency, inference timeout) and retrieving model runtime logs, secured
+    with a workspace API token.
+- aid: inferless:inferless-workspaces-deployments-api
+  name: Inferless Workspaces and Deployments
+  tags:
+  - Workspaces
+  - Imports
+  - Deployments
+  - CLI
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.inferless.com/model-import/cli-import
+  baseURL: https://api.inferless.com
+  properties:
+  - url: https://docs.inferless.com/model-import/cli-import
+    type: Documentation
+  - url: https://docs.inferless.com/references/cli/inferless-deploy
+    type: APIReference
+  - url: openapi/inferless-openapi.yml
+    type: OpenAPI
+  - url: collections/inferless.postman_collection.json
+    type: Postman
+  description: Workspace, model import, and deployment workflow exposed through the
+    Inferless CLI (inferless init, deploy, run, remote-run, model, workspace, runtime,
+    secrets, volume) and backing platform APIs for promoting a model from import to
+    a live serverless inference endpoint.
+common:
+- type: GitHubOrganization
+  url: https://github.com/inferless
+- type: LinkedIn
+  url: https://www.linkedin.com/company/inferless
+- type: Website
+  url: https://www.inferless.com
+- type: Documentation
+  url: https://docs.inferless.com
+- type: Plans
+  url: plans/inferless-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/inferless-rate-limits.yml
+- type: FinOps
+  url: finops/inferless-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,209 @@
+{
+  "item": [
+    {
+      "id": "a1f0c2d4-0001-4a11-9b00-000000000001",
+      "name": "Inference",
+      "description": {
+        "content": "Synchronous inference against a deployed model's auto-generated endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c2d4-0002-4a11-9b00-000000000002",
+          "name": "Run inference against a deployed model.",
+          "request": {
+            "name": "Run inference against a deployed model.",
+            "description": {
+              "content": "Posts a KServe v2 style inputs[] payload (name, shape, datatype, data) to the per-deployment inference host shown on the model's API page. The full URL is auto-generated per deployment; set {{inferenceUrl}} to that value.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{inferenceUrl}}/v2/inference/{{modelName}}/infer",
+              "host": [
+                "{{inferenceUrl}}"
+              ],
+              "path": [
+                "v2",
+                "inference",
+                "{{modelName}}",
+                "infer"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": [\n    {\n      \"name\": \"prompt\",\n      \"shape\": [1],\n      \"datatype\": \"BYTES\",\n      \"data\": [\"What is AI?\"]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1f0c2d4-0003-4a11-9b00-000000000003",
+      "name": "Model Management",
+      "description": {
+        "content": "Workspace-scoped REST management API under https://api.inferless.com/rest.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c2d4-0004-4a11-9b00-000000000004",
+          "name": "Update a model's autoscaling and machine settings.",
+          "request": {
+            "name": "Update a model's autoscaling and machine settings.",
+            "description": {
+              "content": "Updates min/max replicas, scale-down delay, inference timeout, dedicated flag, machine type, and container concurrency for a deployed model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rest/model/settings/update/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rest",
+                "model",
+                "settings",
+                "update",
+                ""
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_id\": \"<model-id>\",\n  \"data\": {\n    \"min_replica\": 0,\n    \"max_replica\": 2,\n    \"scale_down_delay\": 30,\n    \"inference_time\": 120,\n    \"is_dedicated\": false,\n    \"machine_type\": \"T4\",\n    \"container_concurrency\": 10,\n    \"is_input_output_enabled\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c2d4-0005-4a11-9b00-000000000005",
+          "name": "Retrieve runtime logs for a deployed model.",
+          "request": {
+            "name": "Retrieve runtime logs for a deployed model.",
+            "description": {
+              "content": "Returns stdout/stderr log entries for a deployed model over a time range, with optional pagination via next_token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rest/model/logs/get/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rest",
+                "model",
+                "logs",
+                "get",
+                ""
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_id\": \"<model-id>\",\n  \"time_from\": \"2026-06-19T00:00:00Z\",\n  \"time_to\": \"2026-06-20T00:00:00Z\",\n  \"is_less_logs\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inferless.com",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://m-xxxxxxxx.default.model-v1.inferless.com",
+      "key": "inferenceUrl"
+    },
+    {
+      "type": "string",
+      "value": "my-model",
+      "key": "modelName"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1f0c2d4-0000-4a11-9b00-000000000000",
+    "name": "Inferless API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Inferless serverless GPU inference platform. Inference is served from a per-deployment host; management APIs from https://api.inferless.com. Authenticate with a workspace API key as a Bearer token.\n\nContact Support:\n Name: Inferless Support\n URL: https://www.inferless.com",
+      "type": "text/plain"
+    }
+  }
+}

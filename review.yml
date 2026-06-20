@@ -1,0 +1,76 @@
+aid: inferless
+name: Inferless
+review:
+  question: Does Inferless expose a documented public WebSocket or streaming (SSE) API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Per API Evangelist scope (2026-05-29), HTTP Server-Sent Events (SSE) is
+    in-scope for AsyncAPI modeling. No AsyncAPI document was created for
+    Inferless because no SSE or WebSocket streaming transport is documented.
+    The deployed-model inference endpoint is a synchronous request/response
+    REST call using the KServe v2 inputs[] payload; the management API is
+    plain REST. No streaming surface was found to model.
+findings:
+  summary: |
+    Inferless does not publish a documented public WebSocket or SSE streaming
+    API. Each deployed model exposes an auto-generated synchronous REST
+    inference endpoint on a per-deployment host
+    (m-<id>.<region>.model-v1.inferless.com) accepting a JSON body with an
+    inputs[] array (name, shape, datatype, data) in KServe v2 style and
+    returning the model's output dictionary. Authentication is a workspace API
+    key passed as a Bearer token. Workspace-scoped management APIs are served
+    from https://api.inferless.com/rest (e.g. model settings update, model
+    logs get). A CLI (inferless init/deploy/run/remote-run/model/workspace/
+    runtime/secrets/volume) drives import and deployment. No realtime,
+    bidirectional, or token-streaming WebSocket (ws:// / wss://) endpoint is
+    documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.inferless.com
+      documented: true
+      note: Workspace-scoped management API under /rest (model settings, logs).
+    - protocol: REST
+      scheme: https
+      baseURL: https://{modelId}.{region}.model-v1.inferless.com
+      documented: true
+      note: Per-deployment synchronous inference endpoint, KServe v2 inputs[] payload, Bearer auth.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming transport is documented for inference responses.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Inferless API reference, model endpoint, or management docs as of the review date.
+  endpointsConfirmedRest:
+    - POST https://{modelId}.{region}.model-v1.inferless.com/v2/inference/{model_name}/infer
+    - POST https://api.inferless.com/rest/model/settings/update/
+    - POST https://api.inferless.com/rest/model/logs/get/
+sources:
+  - url: https://docs.inferless.com/api-reference/model-endpoint/model-endpoint
+    type: Documentation
+    note: Inference endpoint is auto-generated per deployment and shown on the model's API page; synchronous REST with Bearer auth.
+  - url: https://docs.inferless.com/api-reference/model-endpoint/test-your-model-endpoint
+    type: APIReference
+    note: curl example posts a JSON inputs[] body (name/shape/datatype/data) with Authorization Bearer header; no streaming.
+  - url: https://docs.inferless.com/api-reference/model-management-apis/model-settings-update
+    type: APIReference
+    note: POST https://api.inferless.com/rest/model/settings/update/ with workspace API token.
+  - url: https://docs.inferless.com/api-reference/model-management-apis/model-logs-get
+    type: APIReference
+    note: POST https://api.inferless.com/rest/model/logs/get/ returns stdout/stderr log entries; not a streaming socket.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE streaming surface exists. Inference is synchronous
+    REST (KServe v2 inputs[]), management is plain REST, so no AsyncAPI
+    document was authored. apis.yml models three REST sub-APIs: Inference
+    Endpoints, Model Management, and Workspaces/Deployments.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

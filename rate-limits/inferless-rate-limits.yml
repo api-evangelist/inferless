@@ -1,0 +1,67 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Inferless
+providerId: inferless
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- ML Inference
+- Serverless GPU
+- Model Deployment
+- Inference
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Inferless throughput is governed by per-model autoscaling configuration rather
+  than by a fixed account-wide requests-per-minute quota. Each deployed model has
+  a minimum and maximum replica count, a container concurrency setting (requests
+  served per replica), and an inference timeout. Effective capacity is
+  max_replica x container_concurrency; requests beyond live capacity queue or wait
+  for autoscaling. Enterprise plans raise GPU concurrency (e.g. 50). Specific
+  per-account ceilings are not reconciled in this artifact.
+notes: >-
+  Verify per-workspace GPU concurrency ceilings and any plan-level request caps in
+  the Inferless console and pricing page on reconciliation.
+sources:
+- https://docs.inferless.com/api-reference/model-management-apis/model-settings-update
+- https://www.inferless.com/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Max Replicas
+  scope: model
+  metric: replicas
+  limit: configurable per model (max_replica)
+  notes: Upper bound on concurrently running GPU replicas for a deployed model.
+- name: Min Replicas
+  scope: model
+  metric: replicas
+  limit: configurable per model (min_replica, may be 0)
+  notes: Setting min_replica to 0 enables scale-to-zero; no compute charge when idle.
+- name: Container Concurrency
+  scope: model
+  metric: concurrent_requests
+  limit: configurable per model (container_concurrency)
+  notes: Number of simultaneous requests served per replica before scaling out.
+- name: GPU Concurrency
+  scope: account
+  metric: concurrent_gpus
+  limit: plan-dependent (e.g. 50 on Enterprise)
+  notes: Account-level ceiling on concurrent GPU instances across deployments.
+- name: Inference Timeout
+  scope: model
+  metric: seconds
+  limit: configurable per model (inference_time)
+  notes: Maximum duration a single inference request may run before timing out.
+policies:
+- name: Autoscaling
+  description: Capacity scales between min and max replicas based on live traffic; scale-down occurs after a configurable scale_down_delay.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses while replicas scale up.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

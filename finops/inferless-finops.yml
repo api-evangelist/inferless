@@ -1,0 +1,100 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Inferless
+providerId: inferless
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- AI
+- ML Inference
+- Serverless GPU
+- Model Deployment
+- Inference
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Inferless spend. Inferless bills per second of GPU compute
+  consumed while serving inference, metered by GPU machine type (T4, A10, A100)
+  and instance class (shared/fractional vs dedicated). Cost accrues only while a
+  request runs; with min_replica set to 0, idle deployments incur no charge.
+  Optimization centers on right-sizing the GPU, tuning concurrency and replica
+  bounds, and scaling to zero.
+notes: >-
+  Per-second machine rates are subject to change; verify against the Inferless
+  pricing page during reconciliation.
+sources:
+- https://www.inferless.com/pricing
+- https://docs.inferless.com
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Inferless
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Inferless Serverless GPU Inference
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Inferless
+  PublisherName: Inferless
+  InvoiceIssuerName: Inferless
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: gpu_seconds
+  description: Seconds of GPU compute consumed serving inference, billed per machine type and instance class.
+  unit: seconds
+  aggregation: sum
+  dimensions:
+  - account
+  - workspace
+  - model
+  - machine_type
+- name: shared_instance_seconds
+  description: GPU seconds on shared (fractional) instances at the lower per-second rate.
+  unit: seconds
+  aggregation: sum
+  dimensions:
+  - account
+  - model
+  - machine_type
+- name: dedicated_instance_seconds
+  description: GPU seconds on dedicated instances reserving the full GPU.
+  unit: seconds
+  aggregation: sum
+  dimensions:
+  - account
+  - model
+  - machine_type
+- name: free_credit
+  description: Onboarding free credit (hours) applied against early GPU usage.
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track per-model GPU-second burn and model logs; attribute spend by workspace and deployment.
+- name: Allocation
+  description: Tag deployments per workload/team via workspaces; map machine type and instance class to internal cost centers.
+- name: Optimization
+  description: Right-size the GPU (T4 vs A10 vs A100); set min_replica to 0 to scale to zero when idle; tune container_concurrency and max_replica; prefer shared instances for infrequent workloads and dedicated for steady high-throughput.
+- name: Accountability
+  description: Assign owners per model/workspace; review GPU-second spend monthly against budget and negotiate Enterprise rates at volume.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

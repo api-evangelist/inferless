@@ -1,0 +1,155 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Inferless
+providerId: inferless
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- AI
+- ML Inference
+- Serverless GPU
+- Model Deployment
+- Inference
+- Plans
+description: >-
+  Inferless uses usage-based, per-second GPU compute billing. You pay only for
+  the inference seconds consumed while a request is being served; when minimum
+  replicas are set to zero and there is no active traffic, no charge accrues.
+  Rates vary by GPU machine type (T4, A10, A100) and by whether the instance is
+  shared (fractional) or dedicated. New accounts receive free credit to start.
+notes: >-
+  Representative per-second / per-hour GPU rates as published on the Inferless
+  pricing page; verify the current machine catalog and rates on the page during
+  reconciliation.
+sources:
+- https://www.inferless.com/pricing
+- https://docs.inferless.com
+plans:
+- id: inferless-free-credit
+  name: Free Credit
+  type: free
+  description: >-
+    New users start with free GPU credit and no credit card required, to
+    deploy and test models before paying for usage.
+  entries:
+  - label: Free GPU Credit
+    name: free_credit
+    type: free
+    metric: hours
+    limit: 10
+    timeFrame: onboarding
+    geo: global
+    unit: 1
+    price: 10 hours free credit (plus promotional $30 credit), no credit card required
+    userMultiplied: false
+  elements:
+  - name: Inference Endpoints
+  - name: Model Import
+- id: inferless-pay-as-you-go-shared
+  name: Pay-as-you-go (Shared Instances)
+  type: usage
+  description: >-
+    Per-second GPU billing on shared (fractional) instances - GPU resources are
+    allocated among several users for cost-effective, variable-performance
+    serving suited to smaller or infrequent workloads.
+  entries:
+  - label: T4 (Shared)
+    name: t4_shared
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000092/sec ($0.33/hr)
+    userMultiplied: false
+  - label: A10 (Shared)
+    name: a10_shared
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000170/sec ($0.61/hr)
+    userMultiplied: false
+  - label: A100 (Shared)
+    name: a100_shared
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000745/sec ($2.68/hr)
+    userMultiplied: false
+  elements:
+  - name: Inference Endpoints
+  - name: Autoscaling to Zero
+- id: inferless-pay-as-you-go-dedicated
+  name: Pay-as-you-go (Dedicated Instances)
+  type: usage
+  description: >-
+    Per-second GPU billing on dedicated instances reserving the full GPU for a
+    single workload for consistent performance.
+  entries:
+  - label: T4 (Dedicated)
+    name: t4_dedicated
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000185/sec ($0.66/hr)
+    userMultiplied: false
+  - label: A10 (Dedicated)
+    name: a10_dedicated
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000341/sec ($1.22/hr)
+    userMultiplied: false
+  - label: A100 (Dedicated)
+    name: a100_dedicated
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.001491/sec ($5.36/hr)
+    userMultiplied: false
+  elements:
+  - name: Inference Endpoints
+  - name: Dedicated GPU
+- id: inferless-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Volume plan for high-throughput production workloads with discounted
+    per-second rates, higher GPU concurrency, extended log retention, custom
+    credits, and negotiated terms. Contact Inferless sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: discounted price (min 100,000 inference requests/month; GPU concurrency 50; 365-day log retention)
+    userMultiplied: false
+  elements:
+  - name: Discounted Per-Second Rates
+  - name: Higher GPU Concurrency
+  - name: Extended Log Retention
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
