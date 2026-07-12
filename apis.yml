@@ -87,6 +87,10 @@ apis:
     secrets, volume) and backing platform APIs for promoting a model from import to
     a live serverless inference endpoint.
 common:
+- type: DomainSecurity
+  url: security/inferless-domain-security.yml
+- type: Authentication
+  url: authentication/inferless-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/inferless
 - type: LinkedIn
@@ -101,6 +105,8 @@ common:
   url: rate-limits/inferless-rate-limits.yml
 - type: FinOps
   url: finops/inferless-finops.yml
+- url: https://www.inferless.com/blog/rss.xml
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
