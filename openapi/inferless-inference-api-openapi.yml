@@ -1,0 +1,129 @@
+openapi: 3.0.1
+info:
+  title: Inferless Inference API
+  description: Specification of the Inferless serverless GPU inference platform. Covers the per-deployment model inference endpoint (KServe v2 style inputs[] payload) and the workspace-scoped REST management API for model settings and logs. The inference host is auto-generated per deployment (m-<id>.<region>.model-v1.inferless.com); management APIs are served from https://api.inferless.com. All requests authenticate with a workspace API key passed as a Bearer token in the Authorization header.
+  termsOfService: https://www.inferless.com/terms
+  contact:
+    name: Inferless Support
+    url: https://www.inferless.com
+  version: '1.0'
+servers:
+- url: https://api.inferless.com
+  description: Inferless management API base URL.
+- url: https://{modelId}.{region}.model-v1.inferless.com
+  description: Per-deployment inference host. The full URL is auto-generated and shown on the model's API page in the Inferless console.
+  variables:
+    modelId:
+      default: m-xxxxxxxx
+      description: The deployed model identifier prefix.
+    region:
+      default: default
+      description: The deployment region segment.
+security:
+- bearerAuth: []
+tags:
+- name: Inference
+paths:
+  /v2/inference/{model_name}/infer:
+    post:
+      operationId: runInference
+      tags:
+      - Inference
+      summary: Run inference against a deployed model.
+      description: Sends an inference request to a deployed model's auto-generated endpoint. The request body uses the KServe v2 inputs[] structure (name, shape, datatype, data). This path is served from the per-deployment inference host, not from api.inferless.com.
+      servers:
+      - url: https://{modelId}.{region}.model-v1.inferless.com
+        variables:
+          modelId:
+            default: m-xxxxxxxx
+          region:
+            default: default
+      parameters:
+      - name: model_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The model name segment of the auto-generated inference URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InferenceRequest'
+            example:
+              inputs:
+              - name: prompt
+                shape:
+                - 1
+                datatype: BYTES
+                data:
+                - What is AI?
+      responses:
+        '200':
+          description: Inference result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InferenceResponse'
+        '401':
+          description: Missing or invalid API key.
+components:
+  schemas:
+    InferenceResponse:
+      type: object
+      description: Model output. Inferless returns the dictionary produced by the model's inference function, optionally wrapped in an outputs[] array.
+      properties:
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InferenceTensor'
+    InferenceRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InferenceTensor'
+    InferenceTensor:
+      type: object
+      required:
+      - name
+      - shape
+      - datatype
+      - data
+      properties:
+        name:
+          type: string
+          description: Input parameter name as defined in the model input schema.
+          example: prompt
+        shape:
+          type: array
+          items:
+            type: integer
+          description: Tensor dimensions; use [-1] for variable-length inputs.
+          example:
+          - 1
+        datatype:
+          type: string
+          description: Data type of the input.
+          enum:
+          - BYTES
+          - STRING
+          - INT8
+          - INT32
+          - FP32
+          example: BYTES
+        data:
+          type: array
+          items: {}
+          description: The input values matching the declared shape and datatype.
+          example:
+          - What is AI?
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Workspace API key passed as a Bearer token in the Authorization header.

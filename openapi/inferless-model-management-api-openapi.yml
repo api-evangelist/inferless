@@ -1,0 +1,171 @@
+openapi: 3.0.1
+info:
+  title: Inferless Inference Model Management API
+  description: Specification of the Inferless serverless GPU inference platform. Covers the per-deployment model inference endpoint (KServe v2 style inputs[] payload) and the workspace-scoped REST management API for model settings and logs. The inference host is auto-generated per deployment (m-<id>.<region>.model-v1.inferless.com); management APIs are served from https://api.inferless.com. All requests authenticate with a workspace API key passed as a Bearer token in the Authorization header.
+  termsOfService: https://www.inferless.com/terms
+  contact:
+    name: Inferless Support
+    url: https://www.inferless.com
+  version: '1.0'
+servers:
+- url: https://api.inferless.com
+  description: Inferless management API base URL.
+- url: https://{modelId}.{region}.model-v1.inferless.com
+  description: Per-deployment inference host. The full URL is auto-generated and shown on the model's API page in the Inferless console.
+  variables:
+    modelId:
+      default: m-xxxxxxxx
+      description: The deployed model identifier prefix.
+    region:
+      default: default
+      description: The deployment region segment.
+security:
+- bearerAuth: []
+tags:
+- name: Model Management
+paths:
+  /rest/model/settings/update/:
+    post:
+      operationId: updateModelSettings
+      tags:
+      - Model Management
+      summary: Update a model's autoscaling and machine settings.
+      description: Updates a deployed model's configuration including min/max replicas, scale-down delay, inference timeout, dedicated vs shared, machine type, and container concurrency.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelSettingsUpdateRequest'
+            example:
+              model_id: <model-id>
+              data:
+                min_replica: 0
+                max_replica: 2
+                scale_down_delay: 30
+                inference_time: 120
+                is_dedicated: false
+                machine_type: T4
+                container_concurrency: 10
+                is_input_output_enabled: false
+      responses:
+        '200':
+          description: Update result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusDetailResponse'
+              example:
+                status: success
+                details: Model updated successfully
+        '401':
+          description: Missing or invalid workspace API token.
+  /rest/model/logs/get/:
+    post:
+      operationId: getModelLogs
+      tags:
+      - Model Management
+      summary: Retrieve runtime logs for a deployed model.
+      description: Returns stdout/stderr log entries for a deployed model over a time range, with optional pagination via next_token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelLogsGetRequest'
+            example:
+              model_id: <model-id>
+              time_from: '2026-06-19T00:00:00Z'
+              time_to: '2026-06-20T00:00:00Z'
+              is_less_logs: false
+      responses:
+        '200':
+          description: Model logs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelLogsResponse'
+        '401':
+          description: Missing or invalid workspace API token.
+components:
+  schemas:
+    StatusDetailResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        details:
+          type: string
+    ModelLogsGetRequest:
+      type: object
+      required:
+      - model_id
+      - time_from
+      - time_to
+      properties:
+        model_id:
+          type: string
+        time_from:
+          type: string
+        time_to:
+          type: string
+        is_less_logs:
+          type: boolean
+        next_token:
+          type: string
+    ModelSettingsUpdateRequest:
+      type: object
+      required:
+      - model_id
+      - data
+      properties:
+        model_id:
+          type: string
+        data:
+          type: object
+          properties:
+            min_replica:
+              type: integer
+            max_replica:
+              type: integer
+            scale_down_delay:
+              type: integer
+            inference_time:
+              type: integer
+            is_dedicated:
+              type: boolean
+            machine_type:
+              type: string
+              example: T4
+            container_concurrency:
+              type: integer
+            is_input_output_enabled:
+              type: boolean
+    ModelLogsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              time:
+                type: string
+              log:
+                type: string
+              stream:
+                type: string
+                enum:
+                - stderr
+                - stdout
+        next_token:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Workspace API key passed as a Bearer token in the Authorization header.
