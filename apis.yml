@@ -7,7 +7,20 @@ description: Inferless is a serverless GPU inference platform for machine learni
   Inferless auto-generates a scalable REST inference endpoint billed per second of
   GPU compute. A workspace-scoped management API and CLI cover model import,
   deployment, settings, logs, secrets, and volumes.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/inferless.png
 tags:
 - AI
 - ML Inference
@@ -18,74 +31,54 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: inferless:inferless-inference-endpoints-api
-  name: Inferless Inference Endpoints API
-  tags:
-  - Inference
-  - Serverless GPU
-  - Predictions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: inferless:inferless-inference-api
+  name: Inferless Inference API
+  description: The Inference API from Inferless — 1 operation(s) for inference.
   humanURL: https://docs.inferless.com/api-reference/model-endpoint/model-endpoint
   baseURL: https://api.inferless.com
+  tags:
+  - Inference
   properties:
-  - url: https://docs.inferless.com/api-reference/model-endpoint/model-endpoint
-    type: Documentation
-  - url: https://docs.inferless.com/api-reference/model-endpoint/test-your-model-endpoint
-    type: APIReference
-  - url: openapi/inferless-openapi.yml
-    type: OpenAPI
-  - url: collections/inferless.postman_collection.json
-    type: Postman
-  description: Each deployed model exposes an auto-generated REST inference endpoint
-    on a per-deployment host (m-<id>.<region>.model-v1.inferless.com) accepting a
-    KServe v2 style inputs[] payload with name, shape, datatype, and data, secured
-    with a workspace API key as a Bearer token and billed per second of GPU compute.
+  - type: OpenAPI
+    url: openapi/inferless-inference-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inferless.com/api-reference/model-endpoint/model-endpoint
+  - type: APIReference
+    url: https://docs.inferless.com/api-reference/model-endpoint/test-your-model-endpoint
+  - type: Postman
+    url: collections/inferless.postman_collection.json
+  - type: Documentation
+    url: https://docs.inferless.com/api-reference/model-management-apis/model-settings-update
+  - type: APIReference
+    url: https://docs.inferless.com/api-reference/model-management-apis/model-logs-get
+  - type: Documentation
+    url: https://docs.inferless.com/model-import/cli-import
+  - type: APIReference
+    url: https://docs.inferless.com/references/cli/inferless-deploy
 - aid: inferless:inferless-model-management-api
   name: Inferless Model Management API
+  description: The Model Management API from Inferless — 2 operation(s) for model management.
+  humanURL: https://docs.inferless.com/api-reference/model-endpoint/model-endpoint
+  baseURL: https://api.inferless.com
   tags:
   - Model Management
-  - Deployments
-  - Settings
-  - Logs
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.inferless.com/api-reference/model-management-apis/model-settings-update
-  baseURL: https://api.inferless.com
   properties:
-  - url: https://docs.inferless.com/api-reference/model-management-apis/model-settings-update
-    type: Documentation
-  - url: https://docs.inferless.com/api-reference/model-management-apis/model-logs-get
-    type: APIReference
-  - url: openapi/inferless-openapi.yml
-    type: OpenAPI
-  - url: collections/inferless.postman_collection.json
-    type: Postman
-  description: Workspace-scoped REST management API under https://api.inferless.com/rest
-    for updating model autoscaling and machine settings (min/max replicas, machine
-    type, concurrency, inference timeout) and retrieving model runtime logs, secured
-    with a workspace API token.
-- aid: inferless:inferless-workspaces-deployments-api
-  name: Inferless Workspaces and Deployments
-  tags:
-  - Workspaces
-  - Imports
-  - Deployments
-  - CLI
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.inferless.com/model-import/cli-import
-  baseURL: https://api.inferless.com
-  properties:
-  - url: https://docs.inferless.com/model-import/cli-import
-    type: Documentation
-  - url: https://docs.inferless.com/references/cli/inferless-deploy
-    type: APIReference
-  - url: openapi/inferless-openapi.yml
-    type: OpenAPI
-  - url: collections/inferless.postman_collection.json
-    type: Postman
-  description: Workspace, model import, and deployment workflow exposed through the
-    Inferless CLI (inferless init, deploy, run, remote-run, model, workspace, runtime,
-    secrets, volume) and backing platform APIs for promoting a model from import to
-    a live serverless inference endpoint.
+  - type: OpenAPI
+    url: openapi/inferless-model-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inferless.com/api-reference/model-endpoint/model-endpoint
+  - type: APIReference
+    url: https://docs.inferless.com/api-reference/model-endpoint/test-your-model-endpoint
+  - type: Postman
+    url: collections/inferless.postman_collection.json
+  - type: Documentation
+    url: https://docs.inferless.com/api-reference/model-management-apis/model-settings-update
+  - type: APIReference
+    url: https://docs.inferless.com/api-reference/model-management-apis/model-logs-get
+  - type: Documentation
+    url: https://docs.inferless.com/model-import/cli-import
+  - type: APIReference
+    url: https://docs.inferless.com/references/cli/inferless-deploy
 common:
 - type: AgenticAccess
   url: agentic-access/inferless-agentic-access.yml
