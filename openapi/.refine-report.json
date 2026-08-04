@@ -1,0 +1,16 @@
+{
+  "provider": "inferless",
+  "sources": [
+    "inferless-inference-api-openapi.yml",
+    "inferless-model-management-api-openapi.yml"
+  ],
+  "outputs": [
+    "inferless-inference-api-openapi.yml",
+    "inferless-model-management-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
