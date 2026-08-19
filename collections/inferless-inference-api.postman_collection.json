@@ -1,0 +1,253 @@
+{
+  "item": [
+    {
+      "id": "b7a5f61e-c275-48b2-ab91-49734cd3a7bd",
+      "name": "Inference",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "27fb8d58-df71-439d-b22e-d974c589493a",
+          "name": "Run inference against a deployed model.",
+          "request": {
+            "name": "Run inference against a deployed model.",
+            "description": {
+              "content": "Sends an inference request to a deployed model's auto-generated endpoint. The request body uses the KServe v2 inputs[] structure (name, shape, datatype, data). This path is served from the per-deployment inference host, not from api.inferless.com.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v2",
+                "inference",
+                ":model_name",
+                "infer"
+              ],
+              "host": [
+                "{{modelId}}",
+                "{{region}}",
+                "model-v1",
+                "inferless",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_name",
+                  "description": "(Required) The model name segment of the auto-generated inference URL."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": [\n    {\n      \"name\": \"<string>\",\n      \"shape\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"datatype\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"shape\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"datatype\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cadc8854-6d04-4a7b-91a4-42770b57cb5e",
+              "name": "Inference result.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v2",
+                    "inference",
+                    ":model_name",
+                    "infer"
+                  ],
+                  "host": [
+                    "{{modelId}}",
+                    "{{region}}",
+                    "model-v1",
+                    "inferless",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_name",
+                      "description": "(Required) The model name segment of the auto-generated inference URL."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": [\n    {\n      \"name\": \"prompt\",\n      \"shape\": [\n        1\n      ],\n      \"datatype\": \"BYTES\",\n      \"data\": [\n        \"What is AI?\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"outputs\": [\n    {\n      \"name\": \"prompt\",\n      \"shape\": [\n        1\n      ],\n      \"datatype\": \"BYTES\",\n      \"data\": []\n    },\n    {\n      \"name\": \"prompt\",\n      \"shape\": [\n        1\n      ],\n      \"datatype\": \"BYTES\",\n      \"data\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d723a903-dbb2-4b74-8b62-bbf717d6f368",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v2",
+                    "inference",
+                    ":model_name",
+                    "infer"
+                  ],
+                  "host": [
+                    "{{modelId}}",
+                    "{{region}}",
+                    "model-v1",
+                    "inferless",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_name",
+                      "description": "(Required) The model name segment of the auto-generated inference URL."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": [\n    {\n      \"name\": \"prompt\",\n      \"shape\": [\n        1\n      ],\n      \"datatype\": \"BYTES\",\n      \"data\": [\n        \"What is AI?\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inferless.com",
+      "key": "baseUrl"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "m-xxxxxxxx",
+      "key": "modelId"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "default",
+      "key": "region"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "69610a5e-78a5-460c-8d86-e7548e73a332",
+    "name": "Inferless Inference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Inferless serverless GPU inference platform. Covers the per-deployment model inference endpoint (KServe v2 style inputs[] payload) and the workspace-scoped REST management API for model settings and logs. The inference host is auto-generated per deployment (m-<id>.<region>.model-v1.inferless.com); management APIs are served from https://api.inferless.com. All requests authenticate with a workspace API key passed as a Bearer token in the Authorization header.\n\nContact Support:\n Name: Inferless Support",
+      "type": "text/plain"
+    }
+  }
+}

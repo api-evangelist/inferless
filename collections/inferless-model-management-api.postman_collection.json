@@ -1,0 +1,357 @@
+{
+  "item": [
+    {
+      "id": "047f9887-fc6c-44d9-911a-7862f4417493",
+      "name": "Model Management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bff6b144-a2ee-4233-baa0-71d9434d9c0b",
+          "name": "Update a model's autoscaling and machine settings.",
+          "request": {
+            "name": "Update a model's autoscaling and machine settings.",
+            "description": {
+              "content": "Updates a deployed model's configuration including min/max replicas, scale-down delay, inference timeout, dedicated vs shared, machine type, and container concurrency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "model",
+                "settings",
+                "update",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_id\": \"<string>\",\n  \"data\": {\n    \"min_replica\": \"<integer>\",\n    \"max_replica\": \"<integer>\",\n    \"scale_down_delay\": \"<integer>\",\n    \"inference_time\": \"<integer>\",\n    \"is_dedicated\": \"<boolean>\",\n    \"machine_type\": \"<string>\",\n    \"container_concurrency\": \"<integer>\",\n    \"is_input_output_enabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91d655a1-ce2f-48c0-8b3e-68324903e3ee",
+              "name": "Update result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "model",
+                    "settings",
+                    "update",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_id\": \"<model-id>\",\n  \"data\": {\n    \"min_replica\": 0,\n    \"max_replica\": 2,\n    \"scale_down_delay\": 30,\n    \"inference_time\": 120,\n    \"is_dedicated\": false,\n    \"machine_type\": \"T4\",\n    \"container_concurrency\": 10,\n    \"is_input_output_enabled\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"details\": \"Model updated successfully\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef0cc70a-408e-43d1-988a-5084199095e8",
+              "name": "Missing or invalid workspace API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "model",
+                    "settings",
+                    "update",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_id\": \"<model-id>\",\n  \"data\": {\n    \"min_replica\": 0,\n    \"max_replica\": 2,\n    \"scale_down_delay\": 30,\n    \"inference_time\": 120,\n    \"is_dedicated\": false,\n    \"machine_type\": \"T4\",\n    \"container_concurrency\": 10,\n    \"is_input_output_enabled\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3a6daa7-c5d8-497a-9931-1ca751dd6308",
+          "name": "Retrieve runtime logs for a deployed model.",
+          "request": {
+            "name": "Retrieve runtime logs for a deployed model.",
+            "description": {
+              "content": "Returns stdout/stderr log entries for a deployed model over a time range, with optional pagination via next_token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "model",
+                "logs",
+                "get",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_id\": \"<string>\",\n  \"time_from\": \"<string>\",\n  \"time_to\": \"<string>\",\n  \"is_less_logs\": \"<boolean>\",\n  \"next_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "186f19bb-5617-4d31-9707-2cd6e9fe67e9",
+              "name": "Model logs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "model",
+                    "logs",
+                    "get",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_id\": \"<model-id>\",\n  \"time_from\": \"2026-06-19T00:00:00Z\",\n  \"time_to\": \"2026-06-20T00:00:00Z\",\n  \"is_less_logs\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"details\": [\n    {\n      \"time\": \"string\",\n      \"log\": \"string\",\n      \"stream\": \"stderr\"\n    },\n    {\n      \"time\": \"string\",\n      \"log\": \"string\",\n      \"stream\": \"stderr\"\n    }\n  ],\n  \"next_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "740a4594-1473-47cb-b943-75c638464206",
+              "name": "Missing or invalid workspace API token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "model",
+                    "logs",
+                    "get",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_id\": \"<model-id>\",\n  \"time_from\": \"2026-06-19T00:00:00Z\",\n  \"time_to\": \"2026-06-20T00:00:00Z\",\n  \"is_less_logs\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inferless.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6dafc3b0-4d4b-4980-b2ff-42e55b6d4b67",
+    "name": "Inferless Inference Model Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Inferless serverless GPU inference platform. Covers the per-deployment model inference endpoint (KServe v2 style inputs[] payload) and the workspace-scoped REST management API for model settings and logs. The inference host is auto-generated per deployment (m-<id>.<region>.model-v1.inferless.com); management APIs are served from https://api.inferless.com. All requests authenticate with a workspace API key passed as a Bearer token in the Authorization header.\n\nContact Support:\n Name: Inferless Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Inferless Inference Model Management API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Model Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update a model's autoscaling and machine settings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inferless.com/rest/model/settings/update/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a deployed model's configuration including min/max replicas, scale-down delay, inference timeout, dedicated vs shared, machine type, and container concurrency."
+        },
+        {
+          "info": {
+            "name": "Retrieve runtime logs for a deployed model.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.inferless.com/rest/model/logs/get/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns stdout/stderr log entries for a deployed model over a time range, with optional pagination via next_token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
