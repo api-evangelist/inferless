@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Inferless Inference Model Management API
-  description: Specification of the Inferless serverless GPU inference platform. Covers the per-deployment model inference endpoint (KServe v2 style inputs[] payload) and the workspace-scoped REST management API for model settings and logs. The inference host is auto-generated per deployment (m-<id>.<region>.model-v1.inferless.com); management APIs are served from https://api.inferless.com. All requests authenticate with a workspace API key passed as a Bearer token in the Authorization header.
+  title: Inferless Model Management API
+  description: Specification of the Inferless serverless GPU inference platform. Covers the per-deployment model inference endpoint (KServe v2 style inputs[] payload) and the workspace-scoped REST management API for model settings and logs. The inference host is auto-generated per deployment (m-..model-v1.inferless.com); management APIs are served from https://api.inferless.com. All requests authenticate with a workspace API key passed as a Bearer token in the Authorization header.
   termsOfService: https://www.inferless.com/terms
   contact:
     name: Inferless Support
@@ -29,7 +29,7 @@ paths:
       operationId: updateModelSettings
       tags:
       - Model Management
-      summary: Update a model's autoscaling and machine settings.
+      summary: Update a model's autoscaling and machine settings
       description: Updates a deployed model's configuration including min/max replicas, scale-down delay, inference timeout, dedicated vs shared, machine type, and container concurrency.
       requestBody:
         required: true
@@ -65,7 +65,7 @@ paths:
       operationId: getModelLogs
       tags:
       - Model Management
-      summary: Retrieve runtime logs for a deployed model.
+      summary: Retrieve runtime logs for a deployed model
       description: Returns stdout/stderr log entries for a deployed model over a time range, with optional pagination via next_token.
       requestBody:
         required: true
@@ -89,31 +89,6 @@ paths:
           description: Missing or invalid workspace API token.
 components:
   schemas:
-    StatusDetailResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-        details:
-          type: string
-    ModelLogsGetRequest:
-      type: object
-      required:
-      - model_id
-      - time_from
-      - time_to
-      properties:
-        model_id:
-          type: string
-        time_from:
-          type: string
-        time_to:
-          type: string
-        is_less_logs:
-          type: boolean
-        next_token:
-          type: string
     ModelSettingsUpdateRequest:
       type: object
       required:
@@ -162,6 +137,31 @@ components:
                 enum:
                 - stderr
                 - stdout
+        next_token:
+          type: string
+    StatusDetailResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        details:
+          type: string
+    ModelLogsGetRequest:
+      type: object
+      required:
+      - model_id
+      - time_from
+      - time_to
+      properties:
+        model_id:
+          type: string
+        time_from:
+          type: string
+        time_to:
+          type: string
+        is_less_logs:
+          type: boolean
         next_token:
           type: string
   securitySchemes:

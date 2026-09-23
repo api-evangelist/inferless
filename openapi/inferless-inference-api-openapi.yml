@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Inferless Inference API
-  description: Specification of the Inferless serverless GPU inference platform. Covers the per-deployment model inference endpoint (KServe v2 style inputs[] payload) and the workspace-scoped REST management API for model settings and logs. The inference host is auto-generated per deployment (m-<id>.<region>.model-v1.inferless.com); management APIs are served from https://api.inferless.com. All requests authenticate with a workspace API key passed as a Bearer token in the Authorization header.
+  description: Specification of the Inferless serverless GPU inference platform. Covers the per-deployment model inference endpoint (KServe v2 style inputs[] payload) and the workspace-scoped REST management API for model settings and logs. The inference host is auto-generated per deployment (m-..model-v1.inferless.com); management APIs are served from https://api.inferless.com. All requests authenticate with a workspace API key passed as a Bearer token in the Authorization header.
   termsOfService: https://www.inferless.com/terms
   contact:
     name: Inferless Support
@@ -29,7 +29,7 @@ paths:
       operationId: runInference
       tags:
       - Inference
-      summary: Run inference against a deployed model.
+      summary: Run inference against a deployed model
       description: Sends an inference request to a deployed model's auto-generated endpoint. The request body uses the KServe v2 inputs[] structure (name, shape, datatype, data). This path is served from the per-deployment inference host, not from api.inferless.com.
       servers:
       - url: https://{modelId}.{region}.model-v1.inferless.com
@@ -70,23 +70,6 @@ paths:
           description: Missing or invalid API key.
 components:
   schemas:
-    InferenceResponse:
-      type: object
-      description: Model output. Inferless returns the dictionary produced by the model's inference function, optionally wrapped in an outputs[] array.
-      properties:
-        outputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/InferenceTensor'
-    InferenceRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/InferenceTensor'
     InferenceTensor:
       type: object
       required:
@@ -122,6 +105,23 @@ components:
           description: The input values matching the declared shape and datatype.
           example:
           - What is AI?
+    InferenceRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InferenceTensor'
+    InferenceResponse:
+      type: object
+      description: Model output. Inferless returns the dictionary produced by the model's inference function, optionally wrapped in an outputs[] array.
+      properties:
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InferenceTensor'
   securitySchemes:
     bearerAuth:
       type: http

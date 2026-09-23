@@ -1,8 +1,7 @@
 {
   "provider": "inferless",
   "sources": [
-    "inferless-inference-api-openapi.yml",
-    "inferless-model-management-api-openapi.yml"
+    "_original/inferless-openapi.yml"
   ],
   "outputs": [
     "inferless-inference-api-openapi.yml",
@@ -11,6 +10,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "inferless-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "inferless-openapi.yml: declared missing tag: Inference",
+    "inferless-openapi.yml: declared missing tag: Model Management",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "inferless-inference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inferless-model-management-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
