@@ -89,6 +89,28 @@ paths:
           description: Missing or invalid workspace API token.
 components:
   schemas:
+    ModelLogsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              time:
+                type: string
+              log:
+                type: string
+              stream:
+                type: string
+                enum:
+                - stderr
+                - stdout
+        next_token:
+          type: string
     ModelSettingsUpdateRequest:
       type: object
       required:
@@ -117,28 +139,6 @@ components:
               type: integer
             is_input_output_enabled:
               type: boolean
-    ModelLogsResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              time:
-                type: string
-              log:
-                type: string
-              stream:
-                type: string
-                enum:
-                - stderr
-                - stdout
-        next_token:
-          type: string
     StatusDetailResponse:
       type: object
       properties:
