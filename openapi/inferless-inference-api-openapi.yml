@@ -70,12 +70,11 @@ paths:
           description: Missing or invalid API key.
 components:
   schemas:
-    InferenceRequest:
+    InferenceResponse:
       type: object
-      required:
-      - inputs
+      description: Model output. Inferless returns the dictionary produced by the model's inference function, optionally wrapped in an outputs[] array.
       properties:
-        inputs:
+        outputs:
           type: array
           items:
             $ref: '#/components/schemas/InferenceTensor'
@@ -114,11 +113,12 @@ components:
           description: The input values matching the declared shape and datatype.
           example:
           - What is AI?
-    InferenceResponse:
+    InferenceRequest:
       type: object
-      description: Model output. Inferless returns the dictionary produced by the model's inference function, optionally wrapped in an outputs[] array.
+      required:
+      - inputs
       properties:
-        outputs:
+        inputs:
           type: array
           items:
             $ref: '#/components/schemas/InferenceTensor'
