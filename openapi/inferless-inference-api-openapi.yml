@@ -78,6 +78,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InferenceTensor'
+    InferenceRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InferenceTensor'
     InferenceTensor:
       type: object
       required:
@@ -113,15 +122,6 @@ components:
           description: The input values matching the declared shape and datatype.
           example:
           - What is AI?
-    InferenceRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/InferenceTensor'
   securitySchemes:
     bearerAuth:
       type: http
