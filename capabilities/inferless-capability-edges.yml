@@ -1,0 +1,36 @@
+slug: inferless
+provider: Inferless
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Model Management
+  spec_file: inferless-model-management-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: '"Update a model''s autoscaling and machine settings"; "Retrieve runtime logs for a deployed
+    model"; schema ModelSettingsUpdateRequest'
+  reason: Operational management of deployed ML model deployments (settings, autoscaling, logs) is MLOps,
+    within AI/ML model lifecycle management. Some overlap with platform operations keeps confidence below
+    0.8.
+- tag: Inference
+  spec_file: inferless-inference-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v2/inference/{model_name}/infer — "Run inference against a deployed model"; schemas
+    InferenceRequest, InferenceTensor
+  reason: Serves predictions from deployed ML models (KServe-style), which is AI/ML model lifecycle and
+    serving; no industry-specific capability applies to a serverless GPU inference devtool.
