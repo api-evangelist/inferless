@@ -14,6 +14,7 @@ delivery:
   delivery: managed
   method: page
   read: '2026-10-07'
+  managed_tier: Starter
 published: true
 note: Per-second GPU compute billing; $30/10 hours free credit. Enterprise price not disclosed.
 plan_count: 9
