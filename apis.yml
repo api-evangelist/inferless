@@ -103,6 +103,8 @@ apis:
   - type: APIReference
     url: https://docs.inferless.com/references/cli/inferless-deploy
 common:
+- type: Pricing
+  url: https://www.inferless.com/pricing
 - type: CapabilityMap
   url: capabilities/inferless-capability-edges.yml
   name: Inferless Business Capability Map
