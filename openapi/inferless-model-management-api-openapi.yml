@@ -97,26 +97,21 @@ components:
           example: success
         details:
           type: string
-    ModelLogsResponse:
+    ModelLogsGetRequest:
       type: object
+      required:
+      - model_id
+      - time_from
+      - time_to
       properties:
-        status:
+        model_id:
           type: string
-          example: success
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              time:
-                type: string
-              log:
-                type: string
-              stream:
-                type: string
-                enum:
-                - stderr
-                - stdout
+        time_from:
+          type: string
+        time_to:
+          type: string
+        is_less_logs:
+          type: boolean
         next_token:
           type: string
     ModelSettingsUpdateRequest:
@@ -147,21 +142,26 @@ components:
               type: integer
             is_input_output_enabled:
               type: boolean
-    ModelLogsGetRequest:
+    ModelLogsResponse:
       type: object
-      required:
-      - model_id
-      - time_from
-      - time_to
       properties:
-        model_id:
+        status:
           type: string
-        time_from:
-          type: string
-        time_to:
-          type: string
-        is_less_logs:
-          type: boolean
+          example: success
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              time:
+                type: string
+              log:
+                type: string
+              stream:
+                type: string
+                enum:
+                - stderr
+                - stdout
         next_token:
           type: string
   securitySchemes:
