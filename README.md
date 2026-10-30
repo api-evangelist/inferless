@@ -1,4 +1,4 @@
-# Inferless (inferless)
+# Inferless
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,99 +66,119 @@
 
 Inferless is a serverless GPU inference platform for machine learning models. Teams import a model from Hugging Face, a Git repo, or a container and Inferless auto-generates a scalable REST inference endpoint billed per second of GPU compute. A workspace-scoped management API and CLI cover model import, deployment, settings, logs, secrets, and volumes.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/inferless/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/inferless/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · ML Inference · Serverless GPU · Model Deployment · Inference
 
-## Tags
+## Inferless on APIs.io
 
-- AI
-- ML Inference
-- Serverless GPU
-- Model Deployment
-- Inference
+Everything profiled for Inferless is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/inferless/](https://apis.io/providers/inferless/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (2)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Inferless Inference API](https://apis.io/apis/inferless/inferless-inference-api/) — The Inference API from Inferless — 1 operation(s) for inference.
+- [Inferless Model Management API](https://apis.io/apis/inferless/inferless-model-management-api/) — The Model Management API from Inferless — 2 operation(s) for model management.
 
-## APIs
+### Published properties
 
-### Inferless Inference Endpoints API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Each deployed model exposes an auto-generated REST inference endpoint on a per-deployment host (m-<id>.<region>.model-v1.inferless.com) accepting a KServe v2 style inputs[] payload with name, shape, datatype, and data, secured with a workspace API key as a Bearer token and billed per second of GPU compute.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.inferless.com/api-reference/model-endpoint/model-endpoint](https://docs.inferless.com/api-reference/model-endpoint/model-endpoint)
-- **Base URL:** `https://api.inferless.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Inferless Agentic Access](https://apis.io/agentic-access/inferless/inferless-agentic-access/)
 
-- Inference
-- Serverless GPU
-- Predictions
+#### Collections (3)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.inferless.com/api-reference/model-endpoint/model-endpoint)
-- [API Reference](https://docs.inferless.com/api-reference/model-endpoint/test-your-model-endpoint)
-- [OpenAPI](openapi/inferless-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/inferless.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/inferless.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Inferless API](https://apis.io/collections/inferless/open-inferless/)
+- [Inferless Inference API](https://apis.io/collections/inferless/open-inferless-inference-api/)
+- [Inferless Inference Model Management API](https://apis.io/collections/inferless/open-inferless-model-management-api/)
 
-### Inferless Model Management API
+#### Security (2)
 
-Workspace-scoped REST management API under https://api.inferless.com/rest for updating model autoscaling and machine settings (min/max replicas, machine type, concurrency, inference timeout) and retrieving model runtime logs, secured with a workspace API token.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.inferless.com/api-reference/model-management-apis/model-settings-update](https://docs.inferless.com/api-reference/model-management-apis/model-settings-update)
-- **Base URL:** `https://api.inferless.com`
+- [Inferless Authentication](https://apis.io/security/inferless/inferless-authentication/)
+- [Inferless Domain Security](https://apis.io/security/inferless/inferless-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Model Management
-- Deployments
-- Settings
-- Logs
+Published plans, tiers and prices.
 
-#### Properties
+- [Inferless Plans Pricing](https://apis.io/plans/inferless/inferless-plans-pricing/)
 
-- [Documentation](https://docs.inferless.com/api-reference/model-management-apis/model-settings-update)
-- [API Reference](https://docs.inferless.com/api-reference/model-management-apis/model-logs-get)
-- [OpenAPI](openapi/inferless-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/inferless.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/inferless.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Inferless Workspaces and Deployments
+Published request limits.
 
-Workspace, model import, and deployment workflow exposed through the Inferless CLI (inferless init, deploy, run, remote-run, model, workspace, runtime, secrets, volume) and backing platform APIs for promoting a model from import to a live serverless inference endpoint.
+- [Inferless Rate Limits](https://apis.io/rate-limits/inferless/inferless-rate-limits/)
 
-- **Human URL:** [https://docs.inferless.com/model-import/cli-import](https://docs.inferless.com/model-import/cli-import)
-- **Base URL:** `https://api.inferless.com`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Workspaces
-- Imports
-- Deployments
-- CLI
+- [Inferless Finops](https://apis.io/finops/inferless/inferless-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.inferless.com/model-import/cli-import)
-- [API Reference](https://docs.inferless.com/references/cli/inferless-deploy)
-- [OpenAPI](openapi/inferless-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/inferless.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/inferless.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-## Common Properties
-
-- [GitHub Organization](https://github.com/inferless)
-- [LinkedIn](https://www.linkedin.com/company/inferless)
 - [Website](https://www.inferless.com)
 - [Documentation](https://docs.inferless.com)
-- [Plans](plans/inferless-plans-pricing.yml)
-- [Rate Limits](rate-limits/inferless-rate-limits.yml)
-- [Fin Ops](finops/inferless-finops.yml)
+- [Pricing](https://www.inferless.com/pricing)
+- [Blog](https://www.inferless.com/blog/rss.xml)
+- [GitHub](https://github.com/inferless)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 34.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 52.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 42.1 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/inferless/](https://apis.io/providers/inferless/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Inferless: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/inferless/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
